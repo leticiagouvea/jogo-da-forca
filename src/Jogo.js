@@ -23,6 +23,7 @@ export default function Jogo() {
 
     return (
         <Conteudo>
+            <h1>Jogo da forca</h1>
             <Forca>
                 <img src={forca0} alt="forca" />
             </Forca>
@@ -32,24 +33,39 @@ export default function Jogo() {
             </Botao>
 
             <Palavra>
-
+                <ion-icon name="remove-outline"></ion-icon>
+                <ion-icon name="remove-outline"></ion-icon>
+                <ion-icon name="remove-outline"></ion-icon>
+                <ion-icon name="remove-outline"></ion-icon>
+                <ion-icon name="remove-outline"></ion-icon>
             </Palavra>
 
             <CaixaLetras>
                 <Letras />
             </CaixaLetras>
 
+            <CaixaChute>
+                <h2>Já sei a palavra!</h2>
+                <input placeholder="Escreva aqui"></input>
+                <p>Chutar</p>
+            </CaixaChute>
         </Conteudo>
     )
 }
 
 const Conteudo = styled.div`
-    background-color: lightblue;
-    max-width: 614px;
-    min-height: 600px;
+    width: 600px;
+    height: 600px;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 30px;
     position: relative;
+    h1 {
+        font-size: 40px;
+        font-weight: bold;
+        color: #0B3861;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 `
 
 const Forca = styled.div`
@@ -60,8 +76,8 @@ const Forca = styled.div`
 
 const CaixaLetras = styled.div`
     margin: 0 auto;
-    width: 80%;
-    height: 100px;
+    width: 75%;
+    height: 78px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -70,8 +86,9 @@ const CaixaLetras = styled.div`
 `
 
 const Botao = styled.div`
-    width: 130px;
+    width: 140px;
     height: 40px;
+    font-size: 14px;
     background-color: #27AE60;
     color: #FFFFFF;
     display: flex;
@@ -80,13 +97,42 @@ const Botao = styled.div`
     border-radius: 5px;
     font-weight: bold;
     position: absolute;
-    right: 50px;
-    top: 50px;
-    @media (max-width: 485px) {
-        top: 200px;
-    }
+    right: 30px;
+    top: 75px;
+    cursor: pointer;
 `
 
 const Palavra = styled.div`
+    font-weight: bold;
+    font-size: 22px;
+    position: absolute;
+    right: 30px;
+    bottom: 190px;
+`
 
+const CaixaChute = styled.div`
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 15px;
+    margin-top: 20px;
+    input {
+        height: 28px;
+        padding-left: 6px;
+    }
+    p {
+    width: 70px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #CEE3F6;
+    border: 1px solid #6495ED;
+    color: #0B3861;
+    font-weight: 500;
+    cursor: pointer;
+    }
 `

@@ -24,12 +24,19 @@ export default function Letras() {
 const CaixaLetra = styled.div`
     width: 30px;
     height: 30px;
-    background-color: #eeeeee;
-    border: 1px solid #cccccc;
+    background-color: #A4A4A4;
+    color: #696969;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 5px;
+    /* 
+    background-color: #CEE3F6;
+    border: 1px solid #6495ED;
+    color: #0B3861;
+    cursor: pointer;
+    */
 `
