@@ -17,6 +17,8 @@ export default function Jogo() {
     const [letras, setLetras] = useState([]);
     const [estadoInicial, setEstadoInicial] = useState(false);
     const [cor, setCor] = useState("");
+    const [palavraSelecionada, setPalavraSelecionada] = useState("");
+    const [desativarBotao, setDesativarBotao] = useState(false);
 
     const arrayPalavras = palavras;
 
@@ -31,8 +33,13 @@ export default function Jogo() {
     useEffect(() => {
         if (vida === 0) {
             setCor('vermelho');
-            setLetras(palavra);
+            setLetras(palavraSelecionada);
             setEstadoInicial(false);
+
+            setTimeout(() => {
+                alert('Você perdeu!');
+                window.location.reload();
+            }, 500)
         }
     }, [vida])
 
@@ -40,6 +47,10 @@ export default function Jogo() {
             setPalavraSecreta(arrayPalavra);
             setLetras(Array(arrayPalavra.length).fill("_ "));
             setEstadoInicial(true);
+            setCor("");
+            setPalavraSelecionada(palavra);
+            setDesativarBotao(true);
+
             console.log(palavra)
             console.log(arrayPalavra)
     }
@@ -51,7 +62,7 @@ export default function Jogo() {
                 <img src={vida === 6 ? (forca0) : vida === 5 ? (forca1) : vida === 4 ? (forca2) : vida === 3 ? (forca3) : vida === 2 ? (forca4) : vida === 1 ? (forca5) : (forca6)} alt="forca" />
             </Forca>
 
-            <Botao onClick={iniciarJogo}>
+            <Botao disabled={desativarBotao} onClick={iniciarJogo}>
                 <p>Escolher palavra</p>
             </Botao>
 

@@ -36,12 +36,17 @@ function Letra({letra, palavraSecreta, vida, setVida, letras, setLetras, estadoI
             if (!letras.includes("_ ")) {
                 setCor('verde');
                 setEstadoInicial(false);
+
+                setTimeout(() => {
+                    alert('Parabéns! Você ganhou.');
+                    window.location.reload();
+                }, 500)
             }
         }
     }
 
     return (
-        <CaixaLetra disabled={desativar} estadoInicial={estadoInicial} onClick={verificarLetra}>
+        <CaixaLetra disabled={desativar} desativar={desativar} estadoInicial={estadoInicial} onClick={verificarLetra}>
             {letra}
         </CaixaLetra>
     )
@@ -61,8 +66,8 @@ export default function Letras({palavraSecreta, vida, setVida, letras, setLetras
 const CaixaLetra = styled.button`
     width: 30px;
     height: 30px;
-    background-color: ${(props) => (props.estadoInicial === false ? "#A4A4A4" : "#CEE3F6")};
-    color: ${(props) => (props.estadoInicial === false ? "#696969" : "#0B3861")};
+    background-color: ${(props) => (props.estadoInicial === false ? "#DFDFDF" : "#CEE3F6")};
+    color: ${(props) => (props.estadoInicial === false ? "#313131" : "#0B3861")};
     border-radius: 3px;
     display: flex;
     align-items: center;
@@ -70,7 +75,8 @@ const CaixaLetra = styled.button`
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 5px;
-    border: ${(props) => (props.estadoInicial === false ? "0px" : "1px solid #6495ED")};
+    border: ${(props) => (props.estadoInicial === false ? "1px solid #919191" : "1px solid #6495ED")};
     cursor: ${(props) => (props.estadoInicial === false ? "default" : "pointer")};
     pointer-events: ${(props) => (props.estadoInicial === false ? "none" : "initial")};
+    filter: ${(props) => (props.desativar === false ? "grayscale(0)" : "grayscale(1)")};
 `
