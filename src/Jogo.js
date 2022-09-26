@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import palavras from "./palavras";
 import Letras from "./Letras";
+import Chute from "./Chute";
 import forca0 from "./assets/imgs/forca0.png";
 import forca1 from "./assets/imgs/forca1.png";
 import forca2 from "./assets/imgs/forca2.png";
@@ -8,8 +9,15 @@ import forca3 from "./assets/imgs/forca3.png";
 import forca4 from "./assets/imgs/forca4.png";
 import forca5 from "./assets/imgs/forca5.png";
 import forca6 from "./assets/imgs/forca6.png";
+import { useEffect, useState } from "react";
 
 export default function Jogo() {
+    const [vida, setVida] = useState(6);
+    const [palavraSecreta, setPalavraSecreta] = useState([]);
+    const [letras, setLetras] = useState([]);
+    const [estadoInicial, setEstadoInicial] = useState(false);
+    const [cor, setCor] = useState("");
+
     const arrayPalavras = palavras;
 
     arrayPalavras.sort(comparador)
@@ -17,38 +25,45 @@ export default function Jogo() {
         return Math.random() - 0.5;
     }
 
-    const palavra = arrayPalavras.slice(0, 1).toString();
+    const palavra = arrayPalavras.slice(0, 1).toString().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     const arrayPalavra = palavra.split("");
-    console.log(arrayPalavra)
+
+    useEffect(() => {
+        if (vida === 0) {
+            setCor('vermelho');
+            setLetras(palavra);
+            setEstadoInicial(false);
+        }
+    }, [vida])
+
+    function iniciarJogo() {
+            setPalavraSecreta(arrayPalavra);
+            setLetras(Array(arrayPalavra.length).fill("_ "));
+            setEstadoInicial(true);
+            console.log(palavra)
+            console.log(arrayPalavra)
+    }
 
     return (
         <Conteudo>
             <h1>Jogo da forca</h1>
             <Forca>
-                <img src={forca0} alt="forca" />
+                <img src={vida === 6 ? (forca0) : vida === 5 ? (forca1) : vida === 4 ? (forca2) : vida === 3 ? (forca3) : vida === 2 ? (forca4) : vida === 1 ? (forca5) : (forca6)} alt="forca" />
             </Forca>
 
-            <Botao>
+            <Botao onClick={iniciarJogo}>
                 <p>Escolher palavra</p>
             </Botao>
 
             <Palavra>
-                <ion-icon name="remove-outline"></ion-icon>
-                <ion-icon name="remove-outline"></ion-icon>
-                <ion-icon name="remove-outline"></ion-icon>
-                <ion-icon name="remove-outline"></ion-icon>
-                <ion-icon name="remove-outline"></ion-icon>
+                <span className={cor}>{letras}</span>
             </Palavra>
 
             <CaixaLetras>
-                <Letras />
+                <Letras palavraSecreta={palavraSecreta} vida={vida} setVida={setVida} letras={letras} setLetras={setLetras} estadoInicial={estadoInicial} setEstadoInicial={setEstadoInicial} setCor={setCor} />
             </CaixaLetras>
 
-            <CaixaChute>
-                <h2>Já sei a palavra!</h2>
-                <input placeholder="Escreva aqui"></input>
-                <p>Chutar</p>
-            </CaixaChute>
+            <Chute />
         </Conteudo>
     )
 }
@@ -85,7 +100,7 @@ const CaixaLetras = styled.div`
     margin-top: 20px;
 `
 
-const Botao = styled.div`
+const Botao = styled.button`
     width: 140px;
     height: 40px;
     font-size: 14px;
@@ -95,6 +110,7 @@ const Botao = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    border: 0px;
     font-weight: bold;
     position: absolute;
     right: 30px;
@@ -108,31 +124,12 @@ const Palavra = styled.div`
     position: absolute;
     right: 30px;
     bottom: 190px;
-`
 
-const CaixaChute = styled.div`
-    width: 65%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    font-size: 15px;
-    margin-top: 20px;
-    input {
-        height: 28px;
-        padding-left: 6px;
+    .vermelho {
+        color: red;
     }
-    p {
-    width: 70px;
-    height: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 3px;
-    background-color: #CEE3F6;
-    border: 1px solid #6495ED;
-    color: #0B3861;
-    font-weight: 500;
-    cursor: pointer;
+
+    .verde {
+        color: #27AE60;
     }
 `
