@@ -27,7 +27,7 @@ export default function Jogo() {
         return Math.random() - 0.5;
     }
 
-    const palavra = arrayPalavras.slice(0, 1).toString().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    const palavra = arrayPalavras.slice(0, 1).toString().toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     const arrayPalavra = palavra.split("");
 
     useEffect(() => {
@@ -50,23 +50,20 @@ export default function Jogo() {
             setCor("");
             setPalavraSelecionada(palavra);
             setDesativarBotao(true);
-
-            console.log(palavra)
-            console.log(arrayPalavra)
     }
 
     return (
         <Conteudo>
             <h1>Jogo da forca</h1>
-            <Forca>
+            <Forca data-identifier="game-image">
                 <img src={vida === 6 ? (forca0) : vida === 5 ? (forca1) : vida === 4 ? (forca2) : vida === 3 ? (forca3) : vida === 2 ? (forca4) : vida === 1 ? (forca5) : (forca6)} alt="forca" />
             </Forca>
 
-            <Botao disabled={desativarBotao} onClick={iniciarJogo}>
+            <Botao data-identifier="choose-word" disabled={desativarBotao} onClick={iniciarJogo}>
                 <p>Escolher palavra</p>
             </Botao>
 
-            <Palavra>
+            <Palavra data-identifier="word">
                 <span className={cor}>{letras}</span>
             </Palavra>
 
@@ -74,7 +71,7 @@ export default function Jogo() {
                 <Letras palavraSecreta={palavraSecreta} vida={vida} setVida={setVida} letras={letras} setLetras={setLetras} estadoInicial={estadoInicial} setEstadoInicial={setEstadoInicial} setCor={setCor} />
             </CaixaLetras>
 
-            <Chute />
+            <Chute setCor={setCor} palavraSelecionada={palavraSelecionada} setLetras={setLetras} setEstadoInicial={setEstadoInicial} setVida={setVida} />
         </Conteudo>
     )
 }

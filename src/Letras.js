@@ -7,8 +7,7 @@ function Letra({letra, palavraSecreta, vida, setVida, letras, setLetras, estadoI
     const [desativar, setDesativar] = useState(false);
 
     function verificarLetra() {
-        console.log(palavraSecreta.indexOf(letra))
-        const indice = palavraSecreta.indexOf(letra);
+        const indice = palavraSecreta.indexOf(letra.toUpperCase());
         setDesativar(true);
 
         if (indice === -1) {
@@ -17,7 +16,7 @@ function Letra({letra, palavraSecreta, vida, setVida, letras, setLetras, estadoI
             const indiceLetras = [];
 
             palavraSecreta.forEach((value, indice) => {
-                if (value === letra) {
+                if (value === letra.toUpperCase()) {
                     indiceLetras.push(indice)
                 }
             })
@@ -46,7 +45,7 @@ function Letra({letra, palavraSecreta, vida, setVida, letras, setLetras, estadoI
     }
 
     return (
-        <CaixaLetra disabled={desativar} desativar={desativar} estadoInicial={estadoInicial} onClick={verificarLetra}>
+        <CaixaLetra data-identifier="letter" disabled={desativar} desativar={desativar} estadoInicial={estadoInicial} onClick={verificarLetra}>
             {letra}
         </CaixaLetra>
     )
